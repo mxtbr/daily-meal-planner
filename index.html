@@ -80,6 +80,12 @@ const GROUPS = [{
   key: "dairy",
   label: "🥛 นม/โปรตีนเสริม"
 }, {
+  key: "drink",
+  label: "🥤 เครื่องดื่ม"
+}, {
+  key: "order",
+  label: "🍽️ ตามสั่ง"
+}, {
   key: "sauce",
   label: "🧂 ซอส/เครื่องปรุง"
 }];
@@ -138,15 +144,6 @@ const DEFAULT_FOODS = [
   p: 25,
   c: 2,
   f: 3
-}, {
-  id: "p5",
-  group: "protein",
-  name: "อกไก่งวง",
-  unit: "100g",
-  kcal: 135,
-  p: 29,
-  c: 0,
-  f: 2
 }, {
   id: "p6",
   group: "protein",
@@ -247,23 +244,14 @@ const DEFAULT_FOODS = [
   c: 1,
   f: 0
 }, {
-  id: "p17",
+  id: "p19",
   group: "protein",
-  name: "เต้าหู้ขาวแข็ง",
+  name: "แซลมอนซาชิมิ",
   unit: "100g",
-  kcal: 90,
-  p: 10,
-  c: 2,
-  f: 5
-}, {
-  id: "p18",
-  group: "protein",
-  name: "Edamame",
-  unit: "100g",
-  kcal: 120,
-  p: 11,
-  c: 10,
-  f: 5
+  kcal: 190,
+  p: 20,
+  c: 0,
+  f: 12
 },
 // ===== CARB =====
 {
@@ -357,15 +345,6 @@ const DEFAULT_FOODS = [
   c: 14,
   f: 1
 }, {
-  id: "cb11",
-  group: "carb",
-  name: "Rice cake",
-  unit: "แผ่น",
-  kcal: 35,
-  p: 1,
-  c: 7,
-  f: 0
-}, {
   id: "cb12",
   group: "carb",
   name: "ข้าวเหนียว",
@@ -374,6 +353,24 @@ const DEFAULT_FOODS = [
   p: 2,
   c: 36,
   f: 2
+}, {
+  id: "cb13",
+  group: "carb",
+  name: "ขนมปังซาวโดว์",
+  unit: "แผ่น",
+  kcal: 110,
+  p: 4,
+  c: 21,
+  f: 1
+}, {
+  id: "cb14",
+  group: "carb",
+  name: "โอนิกิริ (ข้าวปั้นญี่ปุ่น)",
+  unit: "ลูก",
+  kcal: 180,
+  p: 4,
+  c: 38,
+  f: 1
 },
 // ===== VEG =====
 {
@@ -393,15 +390,6 @@ const DEFAULT_FOODS = [
   kcal: 22,
   p: 1,
   c: 5,
-  f: 0
-}, {
-  id: "v3",
-  group: "veg",
-  name: "แตงกวา",
-  unit: "ลูกกลาง",
-  kcal: 20,
-  p: 1,
-  c: 4,
   f: 0
 }, {
   id: "v4",
@@ -520,6 +508,15 @@ const DEFAULT_FOODS = [
   p: 1,
   c: 5,
   f: 0
+}, {
+  id: "v17",
+  group: "veg",
+  name: "หน่อไม้ฝรั่ง",
+  unit: "100g",
+  kcal: 20,
+  p: 2,
+  c: 4,
+  f: 0
 },
 // ===== FRUIT =====
 {
@@ -558,15 +555,6 @@ const DEFAULT_FOODS = [
   p: 1,
   c: 10,
   f: 0
-}, {
-  id: "fr5",
-  group: "fruit",
-  name: "ฝรั่ง",
-  unit: "150g",
-  kcal: 100,
-  p: 4,
-  c: 21,
-  f: 1
 }, {
   id: "fr6",
   group: "fruit",
@@ -741,7 +729,7 @@ const DEFAULT_FOODS = [
   c: 2,
   f: 5
 },
-// ===== DAIRY =====
+// ===== DAIRY ===== (Greek yogurt: one portion only, adjust qty in-app)
 {
   id: "d1",
   group: "dairy",
@@ -750,24 +738,6 @@ const DEFAULT_FOODS = [
   kcal: 60,
   p: 10,
   c: 4,
-  f: 0
-}, {
-  id: "d2",
-  group: "dairy",
-  name: "Greek yogurt 0%",
-  unit: "150g",
-  kcal: 90,
-  p: 15,
-  c: 6,
-  f: 0
-}, {
-  id: "d3",
-  group: "dairy",
-  name: "Greek yogurt 0%",
-  unit: "200g",
-  kcal: 120,
-  p: 20,
-  c: 8,
   f: 0
 }, {
   id: "d4",
@@ -823,6 +793,293 @@ const DEFAULT_FOODS = [
   p: 23,
   c: 3,
   f: 1
+},
+// ===== DRINK =====
+{
+  id: "dr1",
+  group: "drink",
+  name: "น้ำผลไม้ปั่น (ร้านเจี้ยนชา)",
+  unit: "แก้ว",
+  kcal: 180,
+  p: 1,
+  c: 43,
+  f: 0
+}, {
+  id: "dr2",
+  group: "drink",
+  name: "โกโก้หวานน้อย",
+  unit: "แก้ว",
+  kcal: 150,
+  p: 5,
+  c: 22,
+  f: 5
+},
+// ===== ORDER — ตามสั่ง (ไม่มีของทอด) =====
+{
+  id: "o1",
+  group: "order",
+  name: "ข้าวมันไก่",
+  unit: "จาน",
+  kcal: 480,
+  p: 28,
+  c: 55,
+  f: 14
+}, {
+  id: "o2",
+  group: "order",
+  name: "ขาหมูไม่หนัง (พร้อมข้าว)",
+  unit: "จาน",
+  kcal: 450,
+  p: 34,
+  c: 48,
+  f: 13
+}, {
+  id: "o3",
+  group: "order",
+  name: "ก๋วยเตี๋ยวเนื้อ",
+  unit: "ชาม",
+  kcal: 380,
+  p: 24,
+  c: 45,
+  f: 8
+}, {
+  id: "o4",
+  group: "order",
+  name: "เฝอเนื้อ",
+  unit: "ชาม",
+  kcal: 350,
+  p: 22,
+  c: 48,
+  f: 6
+}, {
+  id: "o5",
+  group: "order",
+  name: "แรป (ร้านโจนส์สลัด)",
+  unit: "ชิ้น",
+  kcal: 380,
+  p: 25,
+  c: 35,
+  f: 15
+}, {
+  id: "o6",
+  group: "order",
+  name: "ข้าวหน้าเป็ด",
+  unit: "จาน",
+  kcal: 480,
+  p: 24,
+  c: 52,
+  f: 18
+}, {
+  id: "o7",
+  group: "order",
+  name: "สุกี้น้ำ",
+  unit: "ชาม",
+  kcal: 320,
+  p: 20,
+  c: 30,
+  f: 10
+}, {
+  id: "o8",
+  group: "order",
+  name: "เกาเหลาเนื้อ",
+  unit: "ชาม",
+  kcal: 280,
+  p: 30,
+  c: 8,
+  f: 10
+}, {
+  id: "o9",
+  group: "order",
+  name: "บะหมี่เกี๊ยวน้ำหมู",
+  unit: "ชาม",
+  kcal: 350,
+  p: 20,
+  c: 42,
+  f: 9
+}, {
+  id: "o10",
+  group: "order",
+  name: "ก๋วยจั๊บญวน",
+  unit: "ชาม",
+  kcal: 320,
+  p: 18,
+  c: 38,
+  f: 9
+},
+// ญี่ปุ่น
+{
+  id: "o11",
+  group: "order",
+  name: "ข้าวหน้าปลาแซลมอน (Salmon Don)",
+  unit: "จาน",
+  kcal: 480,
+  p: 28,
+  c: 58,
+  f: 14
+}, {
+  id: "o12",
+  group: "order",
+  name: "ราเมนโชยุ (ไม่ทอด)",
+  unit: "ชาม",
+  kcal: 450,
+  p: 22,
+  c: 55,
+  f: 14
+}, {
+  id: "o13",
+  group: "order",
+  name: "อุด้งเย็น",
+  unit: "ชาม",
+  kcal: 380,
+  p: 12,
+  c: 68,
+  f: 4
+}, {
+  id: "o14",
+  group: "order",
+  name: "โซบะเย็น",
+  unit: "ชาม",
+  kcal: 320,
+  p: 12,
+  c: 58,
+  f: 3
+}, {
+  id: "o15",
+  group: "order",
+  name: "ข้าวหน้าไก่ (Oyakodon)",
+  unit: "จาน",
+  kcal: 480,
+  p: 28,
+  c: 55,
+  f: 14
+}, {
+  id: "o16",
+  group: "order",
+  name: "ข้าวหน้าเนื้อ (Gyudon)",
+  unit: "จาน",
+  kcal: 520,
+  p: 24,
+  c: 58,
+  f: 18
+}, {
+  id: "o17",
+  group: "order",
+  name: "มิโซซุป",
+  unit: "ถ้วย",
+  kcal: 60,
+  p: 4,
+  c: 6,
+  f: 2
+}, {
+  id: "o18",
+  group: "order",
+  name: "ทามาโกะยากิ",
+  unit: "จาน",
+  kcal: 150,
+  p: 9,
+  c: 3,
+  f: 11
+}, {
+  id: "o19",
+  group: "order",
+  name: "ซาชิมิรวม",
+  unit: "จาน",
+  kcal: 250,
+  p: 35,
+  c: 2,
+  f: 10
+},
+// ไทยทั่วไป (ไม่ทอด)
+{
+  id: "o20",
+  group: "order",
+  name: "ต้มยำกุ้งน้ำใส",
+  unit: "ถ้วย",
+  kcal: 180,
+  p: 22,
+  c: 8,
+  f: 5
+}, {
+  id: "o21",
+  group: "order",
+  name: "แกงจืดเต้าหู้หมูสับ",
+  unit: "ถ้วย",
+  kcal: 220,
+  p: 16,
+  c: 8,
+  f: 13
+}, {
+  id: "o22",
+  group: "order",
+  name: "ต้มข่าไก่",
+  unit: "ถ้วย",
+  kcal: 280,
+  p: 18,
+  c: 10,
+  f: 18
+}, {
+  id: "o23",
+  group: "order",
+  name: "พะแนงไก่",
+  unit: "จาน",
+  kcal: 320,
+  p: 24,
+  c: 8,
+  f: 20
+}, {
+  id: "o24",
+  group: "order",
+  name: "แกงเขียวหวานไก่",
+  unit: "จาน",
+  kcal: 300,
+  p: 22,
+  c: 10,
+  f: 19
+}, {
+  id: "o25",
+  group: "order",
+  name: "ผัดกะเพราไก่",
+  unit: "จาน",
+  kcal: 350,
+  p: 28,
+  c: 8,
+  f: 22
+}, {
+  id: "o26",
+  group: "order",
+  name: "ยำวุ้นเส้น",
+  unit: "จาน",
+  kcal: 220,
+  p: 14,
+  c: 28,
+  f: 6
+}, {
+  id: "o27",
+  group: "order",
+  name: "ส้มตำไทย",
+  unit: "จาน",
+  kcal: 90,
+  p: 3,
+  c: 18,
+  f: 1
+}, {
+  id: "o28",
+  group: "order",
+  name: "ลาบไก่",
+  unit: "จาน",
+  kcal: 250,
+  p: 26,
+  c: 10,
+  f: 11
+}, {
+  id: "o29",
+  group: "order",
+  name: "น้ำตกหมู",
+  unit: "จาน",
+  kcal: 260,
+  p: 24,
+  c: 8,
+  f: 14
 },
 // ===== SAUCE =====
 {
