@@ -26,69 +26,28 @@ window.onerror = function(msg, src, line, col, err) {
 };
 </script>
 <script>
-const {
-  useState,
-  useEffect,
-  useMemo
-} = React;
 
-// Tiny icon shims (emoji-based) so we don't need an extra CDN dependency
-const Settings2 = ({
-  size = 18,
-  style = {}
-}) => /*#__PURE__*/React.createElement("span", {
-  style: {
-    fontSize: size,
-    lineHeight: 1,
-    ...style
-  }
-}, "⚙️");
-const Upload = ({
-  size = 18,
-  style = {}
-}) => /*#__PURE__*/React.createElement("span", {
-  style: {
-    fontSize: size,
-    lineHeight: 1,
-    ...style
-  }
-}, "⬆️");
-const X = ({
-  size = 13,
-  style = {}
-}) => /*#__PURE__*/React.createElement("span", {
-  style: {
-    fontSize: size,
-    lineHeight: 1,
-    ...style
-  }
-}, "✕");
+const { useState, useEffect, useMemo } = React;
 
-// localStorage-backed shim with the same shape as the Claude artifact window.storage API
+const Settings2 = ({ size = 18, style = {} }) => React.createElement('span', { style: { fontSize: size, lineHeight: 1, ...style } }, '⚙️');
+const Upload = ({ size = 18, style = {} }) => React.createElement('span', { style: { fontSize: size, lineHeight: 1, ...style } }, '⬆️');
+const X = ({ size = 13, style = {} }) => React.createElement('span', { style: { fontSize: size, lineHeight: 1, ...style } }, '✕');
+
 const storage = {
   async get(key) {
     try {
       const v = localStorage.getItem(key);
-      return v === null ? null : {
-        key,
-        value: v
-      };
-    } catch (e) {
-      return null;
-    }
+      return v === null ? null : { key, value: v };
+    } catch (e) { return null; }
   },
   async set(key, value) {
     try {
       localStorage.setItem(key, value);
-      return {
-        key,
-        value
-      };
-    } catch (e) {
-      return null;
-    }
-  }
+      return { key, value };
+    } catch (e) { return null; }
+  },
 };
+
 const COLORS = {
   bg: "#F1F2F5",
   surface: "#FFFFFF",
@@ -1233,7 +1192,10 @@ function App() {
         @import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700;800&display=swap');
         * { font-family: 'Google Sans', 'Roboto', sans-serif; }
       `), /*#__PURE__*/React.createElement("div", {
-    className: "max-w-md mx-auto px-4 pb-16 pt-6"
+    className: "max-w-md mx-auto px-4 pb-16",
+    style: {
+      paddingTop: "max(env(safe-area-inset-top), 1.5rem)"
+    }
   }, showSetup ? /*#__PURE__*/React.createElement("form", {
     onSubmit: handleSetupSubmit,
     className: "pt-6"
@@ -1532,14 +1494,11 @@ function App() {
       className: "text-left"
     }, it.name, " ×", s.qty, " · ", Math.round(it.kcal * s.qty), "k"), /*#__PURE__*/React.createElement("button", {
       onClick: () => removeItem(meal, s.id),
-      className: "w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0",
-      style: {
-        background: COLORS.surface
-      }
+      className: "w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0"
     }, /*#__PURE__*/React.createElement(X, {
       size: 12,
       style: {
-        color: COLORS.danger
+        color: COLORS.carb
       }
     })));
   })) : /*#__PURE__*/React.createElement("div", {
@@ -1575,11 +1534,7 @@ function App() {
       }
     }, g.label);
   })), /*#__PURE__*/React.createElement("div", {
-    className: "flex justify-between items-baseline mb-2",
-    style: {
-      borderTop: `1px solid ${COLORS.border}`,
-      paddingTop: "0.75rem"
-    }
+    className: "flex justify-between items-baseline mb-2"
   }, /*#__PURE__*/React.createElement("span", {
     className: "text-base font-semibold"
   }, activeGroupLabel), /*#__PURE__*/React.createElement("span", {
@@ -1604,7 +1559,6 @@ function App() {
     }
   }, "ตัวเลขเป็นค่าประมาณของอาหารทั่วไป อาหารแพ็กสำเร็จรูปให้ยึดฉลากจริงเป็นหลัก"))));
 }
-ReactDOM.createRoot(document.getElementById("root")).render(/*#__PURE__*/React.createElement(App, null));
 ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(App));
 </script>
 </body>
