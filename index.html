@@ -983,6 +983,10 @@ function emptyMacro() {
     f: 0
   };
 }
+function getTodayKey() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
 function sumItems(list, foodsById) {
   const t = emptyMacro();
   list.forEach(({
@@ -1026,9 +1030,21 @@ function App() {
         const f = await storage.get("foodBlocks");
         if (f && f.value) setFoods(JSON.parse(f.value));
       } catch (e) {}
+      try {
+        const s = await storage.get(`selection-${getTodayKey()}`);
+        if (s && s.value) setSelectionByMeal(JSON.parse(s.value));
+      } catch (e) {}
       setLoaded(true);
     })();
   }, []);
+  useEffect(() => {
+    if (!loaded) return;
+    (async () => {
+      try {
+        await storage.set(`selection-${getTodayKey()}`, JSON.stringify(selectionByMeal));
+      } catch (e) {}
+    })();
+  }, [selectionByMeal, loaded]);
   const foodsById = useMemo(() => Object.fromEntries(foods.map(f => [f.id, f])), [foods]);
   const targets = useMemo(() => {
     if (!profile) return null;
@@ -1422,7 +1438,11 @@ function App() {
     className: "flex gap-2 mb-3 overflow-x-auto",
     style: {
       scrollbarWidth: "none",
-      WebkitOverflowScrolling: "touch"
+      WebkitOverflowScrolling: "touch",
+      marginLeft: "-1rem",
+      marginRight: "-1rem",
+      paddingLeft: "1rem",
+      paddingRight: "1rem"
     }
   }, MEALS.map(m => {
     const active = meal === m.key;
