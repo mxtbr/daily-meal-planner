@@ -11,6 +11,7 @@
 <link rel="icon" href="apple-touch-icon.png">
 <style>
 *, *::before, *::after { box-sizing: border-box; }
+button { background: none; border: none; padding: 0; margin: 0; font: inherit; color: inherit; -webkit-appearance: none; appearance: none; cursor: pointer; }
 .flex { display: flex; }
 .grid { display: grid; }
 .hidden { display: none; }
@@ -84,8 +85,6 @@
 .transition-colors { transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease; }
 
 </style>
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="icon" href="apple-touch-icon.png">
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -1300,13 +1299,14 @@ function Chip({
   children,
   color
 }) {
+  const c = color || COLORS.protein;
   return /*#__PURE__*/React.createElement("button", {
     onClick: onClick,
     className: "text-sm px-3 py-2 rounded-full border transition-colors text-left font-medium",
     style: {
-      borderColor: active ? color || COLORS.protein : COLORS.border,
-      background: active ? `${color || COLORS.protein}18` : COLORS.surface,
-      color: active ? color || COLORS.protein : COLORS.text
+      borderColor: active ? c : COLORS.border,
+      background: active ? `${c}1F` : COLORS.surface,
+      color: active ? c : COLORS.text
     }
   }, children);
 }
@@ -1853,7 +1853,7 @@ function App() {
       className: "flex items-center gap-1 pl-2.5 pr-1 py-2 rounded-full border text-sm font-medium",
       style: {
         borderColor: COLORS.carb,
-        background: `${COLORS.carb}18`,
+        background: `${COLORS.carb}1F`,
         color: COLORS.carb
       }
     }, /*#__PURE__*/React.createElement("button", {
@@ -1919,6 +1919,7 @@ function App() {
     }
   }, "ตัวเลขเป็นค่าประมาณของอาหารทั่วไป อาหารแพ็กสำเร็จรูปให้ยึดฉลากจริงเป็นหลัก"))));
 }
+
 ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(App));
 </script>
 </body>
