@@ -1355,6 +1355,13 @@ function App() {
     dinner: []
   });
   const [editingProfile, setEditingProfile] = useState(false);
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [addName, setAddName] = useState("");
+  const [addKcal, setAddKcal] = useState("");
+  const [addP, setAddP] = useState("");
+  const [addC, setAddC] = useState("");
+  const [addF, setAddF] = useState("");
+  const [addSaveForever, setAddSaveForever] = useState(true);
   useEffect(() => {
     (async () => {
       try {
@@ -1498,6 +1505,46 @@ function App() {
         [meal]: next
       };
     });
+  }
+  async function handleAddCustom(e) {
+    e.preventDefault();
+    const name = addName.trim();
+    const kcal = parseFloat(addKcal);
+    if (!name || !kcal) return;
+    const newItem = {
+      id: `custom_${Date.now()}`,
+      group,
+      name,
+      unit: "รายการ",
+      kcal,
+      p: parseFloat(addP) || 0,
+      c: parseFloat(addC) || 0,
+      f: parseFloat(addF) || 0
+    };
+    if (addSaveForever) {
+      const nextFoods = [...foods, newItem];
+      setFoods(nextFoods);
+      try {
+        await storage.set("foodBlocks", JSON.stringify(nextFoods));
+      } catch (err) {}
+    }
+    setSelectionByMeal(prev => ({
+      ...prev,
+      [meal]: [...prev[meal], {
+        id: newItem.id,
+        qty: 1
+      }]
+    }));
+    if (!addSaveForever) {
+      // not saved to the shared library — still needs to exist in foodsById for this session's totals/labels
+      setFoods(prev => [...prev, newItem]);
+    }
+    setAddName("");
+    setAddKcal("");
+    setAddP("");
+    setAddC("");
+    setAddF("");
+    setShowAddForm(false);
   }
   function removeItem(mealKey, itemId) {
     setSelectionByMeal(prev => ({
@@ -1910,7 +1957,99 @@ function App() {
       color: COLORS.carb,
       onClick: () => addItem(item.id)
     }, item.name, " · ", item.kcal, "k");
-  }))))), /*#__PURE__*/React.createElement("div", {
+  })), showAddForm ? /*#__PURE__*/React.createElement("form", {
+    onSubmit: handleAddCustom,
+    className: "rounded-2xl p-3 mt-2",
+    style: {
+      background: COLORS.surface2,
+      border: `1px solid ${COLORS.border}`
+    }
+  }, /*#__PURE__*/React.createElement("input", {
+    value: addName,
+    onChange: e => setAddName(e.target.value),
+    placeholder: "ชื่อเมนู",
+    className: "w-full mb-2 px-3 py-2 rounded-xl outline-none text-sm",
+    style: {
+      background: COLORS.surface,
+      border: `1px solid ${COLORS.border}`
+    }
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "flex gap-2 mb-2"
+  }, /*#__PURE__*/React.createElement("input", {
+    value: addKcal,
+    onChange: e => setAddKcal(e.target.value),
+    placeholder: "kcal",
+    inputMode: "decimal",
+    className: "flex-1 px-3 py-2 rounded-xl outline-none text-sm",
+    style: {
+      background: COLORS.surface,
+      border: `1px solid ${COLORS.border}`
+    }
+  }), /*#__PURE__*/React.createElement("input", {
+    value: addP,
+    onChange: e => setAddP(e.target.value),
+    placeholder: "โปรตีน g",
+    inputMode: "decimal",
+    className: "flex-1 px-3 py-2 rounded-xl outline-none text-sm",
+    style: {
+      background: COLORS.surface,
+      border: `1px solid ${COLORS.border}`
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "flex gap-2 mb-3"
+  }, /*#__PURE__*/React.createElement("input", {
+    value: addC,
+    onChange: e => setAddC(e.target.value),
+    placeholder: "คาร์บ g",
+    inputMode: "decimal",
+    className: "flex-1 px-3 py-2 rounded-xl outline-none text-sm",
+    style: {
+      background: COLORS.surface,
+      border: `1px solid ${COLORS.border}`
+    }
+  }), /*#__PURE__*/React.createElement("input", {
+    value: addF,
+    onChange: e => setAddF(e.target.value),
+    placeholder: "ไขมัน g",
+    inputMode: "decimal",
+    className: "flex-1 px-3 py-2 rounded-xl outline-none text-sm",
+    style: {
+      background: COLORS.surface,
+      border: `1px solid ${COLORS.border}`
+    }
+  })), /*#__PURE__*/React.createElement("label", {
+    className: "flex items-center gap-2 mb-3 text-sm",
+    style: {
+      color: COLORS.textDim
+    }
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "checkbox",
+    checked: addSaveForever,
+    onChange: e => setAddSaveForever(e.target.checked)
+  }), "บันทึกไว้ใช้ครั้งหน้าด้วย (เพิ่มเข้าคลังเมนูถาวร)"), /*#__PURE__*/React.createElement("div", {
+    className: "flex gap-2"
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "submit",
+    className: "flex-1 py-2 rounded-full text-sm font-semibold",
+    style: {
+      background: COLORS.text,
+      color: "#fff"
+    }
+  }, "✓ เพิ่มเข้ามื้อนี้"), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    onClick: () => setShowAddForm(false),
+    className: "px-4 py-2 rounded-full text-sm font-semibold",
+    style: {
+      color: COLORS.textDim
+    }
+  }, "ยกเลิก"))) : /*#__PURE__*/React.createElement("button", {
+    onClick: () => setShowAddForm(true),
+    className: "w-full mt-2 py-2.5 rounded-full text-sm font-semibold",
+    style: {
+      border: `1px dashed ${COLORS.border}`,
+      color: COLORS.textDim
+    }
+  }, "✏️ เพิ่มเมนูเอง (ไม่มีในลิสต์)")))), /*#__PURE__*/React.createElement("div", {
     className: "max-w-md mx-auto px-4 pb-16"
   }, /*#__PURE__*/React.createElement("p", {
     className: "text-xs mt-4 px-1",
