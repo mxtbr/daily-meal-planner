@@ -7,8 +7,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="theme-color" content="#F1F2F5" />
 <title>Fuel Console</title>
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="icon" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" href="IMG_7134.jpeg">
+<link rel="icon" href="IMG_7134.jpeg">
 <style>
 *, *::before, *::after { box-sizing: border-box; }
 button { background: none; border: none; padding: 0; margin: 0; font: inherit; color: inherit; -webkit-appearance: none; appearance: none; cursor: pointer; }
@@ -162,6 +162,9 @@ const GROUPS = [{
 }, {
   key: "order",
   label: "🍽️ ตามสั่ง"
+}, {
+  key: "bakery",
+  label: "🥐 ของว่าง/เบเกอรี่"
 }, {
   key: "sauce",
   label: "🧂 ซอส/เครื่องปรุง"
@@ -320,6 +323,15 @@ const DEFAULT_FOODS = [
   p: 11,
   c: 1,
   f: 0
+}, {
+  id: "p20",
+  group: "protein",
+  name: "ไข่ตุ๋น",
+  unit: "ถ้วย",
+  kcal: 120,
+  p: 10,
+  c: 2,
+  f: 8
 }, {
   id: "p19",
   group: "protein",
@@ -890,6 +902,42 @@ const DEFAULT_FOODS = [
   p: 5,
   c: 22,
   f: 5
+}, {
+  id: "dr3",
+  group: "drink",
+  name: "ชาส้มปั่น (เจี้ยนชา) หวาน 25%",
+  unit: "แก้ว",
+  kcal: 130,
+  p: 1,
+  c: 32,
+  f: 0
+}, {
+  id: "dr4",
+  group: "drink",
+  name: "ชาองุ่นปั่น (เจี้ยนชา) หวาน 25%",
+  unit: "แก้ว",
+  kcal: 150,
+  p: 1,
+  c: 37,
+  f: 0
+}, {
+  id: "dr5",
+  group: "drink",
+  name: "ชิช่า (เจี้ยนชา)",
+  unit: "แก้ว",
+  kcal: 280,
+  p: 3,
+  c: 50,
+  f: 8
+}, {
+  id: "dr6",
+  group: "drink",
+  name: "ชานมเผือกหวาน 0% (เจี้ยนชา)",
+  unit: "แก้ว",
+  kcal: 180,
+  p: 3,
+  c: 30,
+  f: 5
 },
 // ===== ORDER — ตามสั่ง (ไม่มีของทอด) =====
 {
@@ -1158,6 +1206,165 @@ const DEFAULT_FOODS = [
   c: 8,
   f: 14
 },
+// เกาหลี (ไม่เผ็ดจัด)
+{
+  id: "o30",
+  group: "order",
+  name: "บิบิมบับ (ข้าวยำเกาหลี ไม่เผ็ด)",
+  unit: "จาน",
+  kcal: 480,
+  p: 22,
+  c: 65,
+  f: 15
+}, {
+  id: "o31",
+  group: "order",
+  name: "ซุนดูบู (ซุปเต้าหู้เกาหลี อ่อนเผ็ด)",
+  unit: "ถ้วย",
+  kcal: 280,
+  p: 18,
+  c: 15,
+  f: 16
+}, {
+  id: "o32",
+  group: "order",
+  name: "ไก่ตุ๋นโสม (Samgyetang)",
+  unit: "ตัว",
+  kcal: 450,
+  p: 35,
+  c: 30,
+  f: 18
+}, {
+  id: "o33",
+  group: "order",
+  name: "คิมบับ (ข้าวห่อสาหร่ายเกาหลี)",
+  unit: "ม้วน",
+  kcal: 380,
+  p: 12,
+  c: 60,
+  f: 10
+}, {
+  id: "o34",
+  group: "order",
+  name: "บุลโกกิ (หมู/เนื้อย่างเกาหลี)",
+  unit: "จาน",
+  kcal: 350,
+  p: 28,
+  c: 15,
+  f: 18
+},
+// จีน
+{
+  id: "o35",
+  group: "order",
+  name: "ปลานึ่งซีอิ๊ว",
+  unit: "จาน",
+  kcal: 200,
+  p: 30,
+  c: 5,
+  f: 7
+}, {
+  id: "o36",
+  group: "order",
+  name: "ไก่ผัดขิง",
+  unit: "จาน",
+  kcal: 280,
+  p: 26,
+  c: 10,
+  f: 14
+}, {
+  id: "o37",
+  group: "order",
+  name: "ผัดผักรวมสไตล์จีน",
+  unit: "จาน",
+  kcal: 150,
+  p: 5,
+  c: 15,
+  f: 8
+}, {
+  id: "o38",
+  group: "order",
+  name: "ต้มจับฉ่าย",
+  unit: "ถ้วย",
+  kcal: 120,
+  p: 8,
+  c: 12,
+  f: 4
+}, {
+  id: "o39",
+  group: "order",
+  name: "ติ่มซำนึ่ง (ขนมจีบ/ฮะเก๋า)",
+  unit: "จาน",
+  kcal: 220,
+  p: 14,
+  c: 22,
+  f: 9
+}, {
+  id: "o40",
+  group: "order",
+  name: "ข้าวผัดไข่",
+  unit: "จาน",
+  kcal: 380,
+  p: 10,
+  c: 55,
+  f: 12
+},
+// ตะวันตก/คลีน
+{
+  id: "o41",
+  group: "order",
+  name: "สลัดอกไก่ย่างซีซาร์ (ครีมน้อย)",
+  unit: "จาน",
+  kcal: 380,
+  p: 35,
+  c: 15,
+  f: 20
+}, {
+  id: "o42",
+  group: "order",
+  name: "แซลมอนย่าง + ผักย่างสไตล์ตะวันตก",
+  unit: "จาน",
+  kcal: 420,
+  p: 32,
+  c: 15,
+  f: 26
+}, {
+  id: "o43",
+  group: "order",
+  name: "ซุปครีมฟักทอง",
+  unit: "ถ้วย",
+  kcal: 180,
+  p: 4,
+  c: 25,
+  f: 8
+}, {
+  id: "o44",
+  group: "order",
+  name: "แซนวิชอกไก่อะโวคาโด",
+  unit: "ชิ้น",
+  kcal: 380,
+  p: 28,
+  c: 35,
+  f: 14
+}, {
+  id: "o45",
+  group: "order",
+  name: "พาสต้าซอสมะเขือเทศ",
+  unit: "จาน",
+  kcal: 420,
+  p: 14,
+  c: 70,
+  f: 10
+}, {
+  id: "o46",
+  group: "order",
+  name: "โอ๊ตมีลผลไม้",
+  unit: "ถ้วย",
+  kcal: 300,
+  p: 10,
+  c: 50,
+  f: 7
+},
 // ===== SAUCE =====
 {
   id: "sc1",
@@ -1231,6 +1438,53 @@ const DEFAULT_FOODS = [
   p: 2,
   c: 4,
   f: 4
+},
+// ===== BAKERY/SNACK =====
+{
+  id: "bk1",
+  group: "bakery",
+  name: "ครัวซองต์",
+  unit: "ชิ้น",
+  kcal: 280,
+  p: 6,
+  c: 30,
+  f: 14
+}, {
+  id: "bk2",
+  group: "bakery",
+  name: "มัฟฟินกล้วยโฮลวีท",
+  unit: "ชิ้น",
+  kcal: 220,
+  p: 5,
+  c: 35,
+  f: 7
+}, {
+  id: "bk3",
+  group: "bakery",
+  name: "คุกกี้ข้าวโอ๊ต",
+  unit: "ชิ้น",
+  kcal: 150,
+  p: 3,
+  c: 20,
+  f: 6
+}, {
+  id: "bk4",
+  group: "bakery",
+  name: "เบเกิล",
+  unit: "ชิ้น",
+  kcal: 260,
+  p: 10,
+  c: 50,
+  f: 2
+}, {
+  id: "bk5",
+  group: "bakery",
+  name: "เอแคลร์",
+  unit: "ชิ้น",
+  kcal: 250,
+  p: 4,
+  c: 28,
+  f: 13
 }];
 const DAY_TYPES = [{
   key: "workout",
@@ -1957,27 +2211,69 @@ function App() {
       color: COLORS.carb,
       onClick: () => addItem(item.id)
     }, item.name, " · ", item.kcal, "k");
-  }), !showAddForm && /*#__PURE__*/React.createElement("button", {
+  }), /*#__PURE__*/React.createElement("button", {
     onClick: () => setShowAddForm(true),
     className: "text-sm px-3 py-2 rounded-full font-medium",
     style: {
       border: `1px dashed ${COLORS.border}`,
       color: COLORS.textDim
     }
-  }, "✏️ เพิ่มเมนูเอง")), showAddForm && /*#__PURE__*/React.createElement("form", {
-    onSubmit: handleAddCustom,
-    className: "rounded-2xl p-3 mt-2",
+  }, "✏️ เพิ่มเมนูเอง"))))), /*#__PURE__*/React.createElement("div", {
+    className: "max-w-md mx-auto px-4 pb-16"
+  }, /*#__PURE__*/React.createElement("p", {
+    className: "text-xs mt-4 px-1",
     style: {
-      background: COLORS.surface2,
-      border: `1px solid ${COLORS.border}`
+      color: COLORS.textDim
     }
+  }, "ตัวเลขเป็นค่าประมาณของอาหารทั่วไป อาหารแพ็กสำเร็จรูปให้ยึดฉลากจริงเป็นหลัก")), showAddForm && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    onClick: () => setShowAddForm(false),
+    style: {
+      position: "fixed",
+      inset: 0,
+      background: "rgba(0,0,0,0.45)",
+      zIndex: 50
+    }
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: "fixed",
+      left: 0,
+      right: 0,
+      bottom: 0,
+      zIndex: 51,
+      background: COLORS.surface,
+      borderTopLeftRadius: "1.5rem",
+      borderTopRightRadius: "1.5rem",
+      maxHeight: "85vh",
+      overflowY: "auto",
+      padding: "0.75rem 1rem calc(1.5rem + env(safe-area-inset-bottom))"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 40,
+      height: 5,
+      borderRadius: 3,
+      background: COLORS.border,
+      margin: "0 auto 1rem"
+    }
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "flex justify-between items-center mb-4"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "text-lg font-bold"
+  }, "✏️ เพิ่มเมนูเอง"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => setShowAddForm(false),
+    className: "text-sm",
+    style: {
+      color: COLORS.textDim
+    }
+  }, "ปิด")), /*#__PURE__*/React.createElement("form", {
+    onSubmit: handleAddCustom
   }, /*#__PURE__*/React.createElement("input", {
     value: addName,
     onChange: e => setAddName(e.target.value),
     placeholder: "ชื่อเมนู",
-    className: "w-full mb-2 px-3 py-2 rounded-xl outline-none text-sm",
+    className: "w-full mb-2 px-3 py-2 rounded-2xl outline-none text-sm",
     style: {
-      background: COLORS.surface,
+      background: COLORS.surface2,
       border: `1px solid ${COLORS.border}`
     }
   }), /*#__PURE__*/React.createElement("div", {
@@ -1987,9 +2283,9 @@ function App() {
     onChange: e => setAddKcal(e.target.value),
     placeholder: "kcal",
     inputMode: "decimal",
-    className: "flex-1 px-3 py-2 rounded-xl outline-none text-sm",
+    className: "flex-1 px-3 py-2 rounded-2xl outline-none text-sm",
     style: {
-      background: COLORS.surface,
+      background: COLORS.surface2,
       border: `1px solid ${COLORS.border}`
     }
   }), /*#__PURE__*/React.createElement("input", {
@@ -1997,9 +2293,9 @@ function App() {
     onChange: e => setAddP(e.target.value),
     placeholder: "โปรตีน g",
     inputMode: "decimal",
-    className: "flex-1 px-3 py-2 rounded-xl outline-none text-sm",
+    className: "flex-1 px-3 py-2 rounded-2xl outline-none text-sm",
     style: {
-      background: COLORS.surface,
+      background: COLORS.surface2,
       border: `1px solid ${COLORS.border}`
     }
   })), /*#__PURE__*/React.createElement("div", {
@@ -2009,9 +2305,9 @@ function App() {
     onChange: e => setAddC(e.target.value),
     placeholder: "คาร์บ g",
     inputMode: "decimal",
-    className: "flex-1 px-3 py-2 rounded-xl outline-none text-sm",
+    className: "flex-1 px-3 py-2 rounded-2xl outline-none text-sm",
     style: {
-      background: COLORS.surface,
+      background: COLORS.surface2,
       border: `1px solid ${COLORS.border}`
     }
   }), /*#__PURE__*/React.createElement("input", {
@@ -2019,13 +2315,13 @@ function App() {
     onChange: e => setAddF(e.target.value),
     placeholder: "ไขมัน g",
     inputMode: "decimal",
-    className: "flex-1 px-3 py-2 rounded-xl outline-none text-sm",
+    className: "flex-1 px-3 py-2 rounded-2xl outline-none text-sm",
     style: {
-      background: COLORS.surface,
+      background: COLORS.surface2,
       border: `1px solid ${COLORS.border}`
     }
   })), /*#__PURE__*/React.createElement("label", {
-    className: "flex items-center gap-2 mb-3 text-sm",
+    className: "flex items-center gap-2 mb-4 text-sm",
     style: {
       color: COLORS.textDim
     }
@@ -2033,30 +2329,14 @@ function App() {
     type: "checkbox",
     checked: addSaveForever,
     onChange: e => setAddSaveForever(e.target.checked)
-  }), "บันทึกไว้ใช้ครั้งหน้าด้วย (เพิ่มเข้าคลังเมนูถาวร)"), /*#__PURE__*/React.createElement("div", {
-    className: "flex gap-2"
-  }, /*#__PURE__*/React.createElement("button", {
+  }), "บันทึกไว้ใช้ครั้งหน้าด้วย (เพิ่มเข้าคลังเมนูถาวร)"), /*#__PURE__*/React.createElement("button", {
     type: "submit",
-    className: "flex-1 py-2 rounded-full text-sm font-semibold",
+    className: "w-full py-3 rounded-full text-sm font-semibold",
     style: {
       background: COLORS.text,
       color: "#fff"
     }
-  }, "✓ เพิ่มเข้ามื้อนี้"), /*#__PURE__*/React.createElement("button", {
-    type: "button",
-    onClick: () => setShowAddForm(false),
-    className: "px-4 py-2 rounded-full text-sm font-semibold",
-    style: {
-      color: COLORS.textDim
-    }
-  }, "ยกเลิก")))))), /*#__PURE__*/React.createElement("div", {
-    className: "max-w-md mx-auto px-4 pb-16"
-  }, /*#__PURE__*/React.createElement("p", {
-    className: "text-xs mt-4 px-1",
-    style: {
-      color: COLORS.textDim
-    }
-  }, "ตัวเลขเป็นค่าประมาณของอาหารทั่วไป อาหารแพ็กสำเร็จรูปให้ยึดฉลากจริงเป็นหลัก"))));
+  }, "✓ เพิ่มเข้ามื้อนี้"))))));
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(App));
