@@ -1957,7 +1957,14 @@ function App() {
       color: COLORS.carb,
       onClick: () => addItem(item.id)
     }, item.name, " · ", item.kcal, "k");
-  })), showAddForm ? /*#__PURE__*/React.createElement("form", {
+  }), !showAddForm && /*#__PURE__*/React.createElement("button", {
+    onClick: () => setShowAddForm(true),
+    className: "text-sm px-3 py-2 rounded-full font-medium",
+    style: {
+      border: `1px dashed ${COLORS.border}`,
+      color: COLORS.textDim
+    }
+  }, "✏️ เพิ่มเมนูเอง")), showAddForm && /*#__PURE__*/React.createElement("form", {
     onSubmit: handleAddCustom,
     className: "rounded-2xl p-3 mt-2",
     style: {
@@ -2042,14 +2049,7 @@ function App() {
     style: {
       color: COLORS.textDim
     }
-  }, "ยกเลิก"))) : /*#__PURE__*/React.createElement("button", {
-    onClick: () => setShowAddForm(true),
-    className: "w-full mt-2 py-2.5 rounded-full text-sm font-semibold",
-    style: {
-      border: `1px dashed ${COLORS.border}`,
-      color: COLORS.textDim
-    }
-  }, "✏️ เพิ่มเมนูเอง (ไม่มีในลิสต์)")))), /*#__PURE__*/React.createElement("div", {
+  }, "ยกเลิก")))))), /*#__PURE__*/React.createElement("div", {
     className: "max-w-md mx-auto px-4 pb-16"
   }, /*#__PURE__*/React.createElement("p", {
     className: "text-xs mt-4 px-1",
